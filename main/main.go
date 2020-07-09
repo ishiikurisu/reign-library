@@ -4,7 +4,7 @@ import (
     "fmt"
     "syscall/js"
     "encoding/base64"
-    "maps"
+    "github.com/ishiikurisu/reign-library/maps"
 )
 
 func exportWorld(inlet [][]maps.Block) [][]map[string]interface{} {
