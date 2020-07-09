@@ -1,5 +1,5 @@
 # Reign Library
 
-Go libraries for [https://github.com/ishiikurisu/reign-simulator](Reign Simulator).
+Go libraries for [Reign Simulator](https://github.com/ishiikurisu/reign-simulator).
 
 These are meant to be compiled into WebAssembly and included in the project.
