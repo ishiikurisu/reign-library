@@ -3,7 +3,7 @@ package main
 import (
     "fmt"
     "os"
-    "maps"
+    "github.com/ishiikurisu/reign-library/maps"
     "io/ioutil"
     "math"
     "image"
