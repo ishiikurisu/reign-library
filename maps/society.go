@@ -1,8 +1,9 @@
 package maps
 
 import (
-    "math/rand"
-    "syscall/js"
+    "fmt"
+    "strconv"
+    "strings"
 )
 
 type Institution struct {
@@ -10,21 +11,38 @@ type Institution struct {
     What string
     // institution's position on world
     Where []int
-    // javascript object holding object memory
-    Memory js.Value
-    // javascript function to be called to update this institution
-    Script js.Value
+    // javascript object holding institution's memory
+    Memory string
 }
 
 // Updates the society `s` living on the world `m`
-func tick(world [][]Block, institutions []Institution) []Institution {
-    rand.Shuffle(len(institutions), func(i, j int) {
-        institutions[i], institutions[j] = institutions[j], institutions[i]
-    })
+func Tick(world [][]Block, institutions []Institution) []Institution {
+    functions := map[string]func([][]Block, []Institution, int)[]Institution {
+        "farm": updateFarm,
+        "house": updateHouse,
+    }
 
-    for i, institution := range institutions {
-        institution.Script.Invoke(ValueOf(world), ValueOf(institutions), i)
+    for i := 0; i < len(institutions); i++ {
+        institution := institutions[i]
+        institutions = functions[institution.What](world, institutions, i)
     }
 
     return institutions
+}
+
+func updateFarm(world [][]Block, society[]Institution, index int) []Institution {
+    farm := society[index]
+    cropString := strings.Split(strings.Trim(farm.Memory, "\n"), ":")[1]
+    crop, oops := strconv.Atoi(cropString)
+
+    if oops == nil {
+        farm.Memory = fmt.Sprintf("crop:%d\n", crop + 1)
+    }
+
+    society[index] = farm
+    return society
+}
+
+func updateHouse(world [][]Block, society[]Institution, house int) []Institution {
+    return society
 }

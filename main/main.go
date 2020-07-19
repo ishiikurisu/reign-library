@@ -3,12 +3,11 @@ package main
 import (
     "fmt"
     "syscall/js"
-    "github.com/ishiikurisu/reign-library/maps"
 )
 
 func registerCallbacks() {
-    js.Global().Set("loadMap", js.FuncOf(maps.LoadMap))
-    js.Global().Set("tick", js.FuncOf(maps.Tick))
+    js.Global().Set("loadMap", js.FuncOf(loadMap))
+    js.Global().Set("tick", js.FuncOf(tick))
 }
 
 func main() {

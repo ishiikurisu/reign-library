@@ -1,4 +1,4 @@
-package maps
+package main
 
 // STOLEN FROM https://github.com/norunners/vert
 
